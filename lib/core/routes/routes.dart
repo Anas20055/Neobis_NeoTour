@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:neo_tour/app/domain/entity/tour.dart';
 import 'package:neo_tour/app/presentation/pages/boarding_screen/boarding_screen.dart';
+import 'package:neo_tour/app/presentation/pages/detail_screen/detail_screen.dart';
 import 'package:neo_tour/app/presentation/pages/home_page/home_page.dart';
 
 abstract class AppRouteNames {
@@ -13,7 +15,8 @@ abstract class AppRoutes {
     return switch (settings.name) {
       AppRouteNames.homePage => _materialRoute(const HomePage()),
       AppRouteNames.boarding => _materialRoute(const BoardingScreen()),
-      AppRouteNames.tour => _materialRoute(const BoardingScreen()),
+      AppRouteNames.tour =>
+        _materialRoute(DetailScreen(tour: settings.arguments as TourEntity)),
       _ => _materialRoute(const BoardingScreen()),
     };
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neo_tour/app/presentation/bloc/category_bloc.dart';
+import 'package:neo_tour/app/presentation/common_widgets/circle_tab_indicator.dart';
 import 'package:neo_tour/core/constants/app_colors.dart';
 import 'package:neo_tour/core/di/injection_container.dart';
 import 'package:neo_tour/core/routes/routes.dart';

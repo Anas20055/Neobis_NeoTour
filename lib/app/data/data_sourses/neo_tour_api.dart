@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:neo_tour/app/data/model/category.dart';
+import 'package:neo_tour/app/data/model/tour.dart';
 import 'package:neo_tour/core/constants/constats.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -10,4 +11,8 @@ abstract class NeoTourApi {
   factory NeoTourApi(Dio dio) = _NeoTourApi;
   @GET('/neotour/categories')
   Future<HttpResponse<List<CategoryModel>>> getCategories();
+
+  @GET('/neotour/tours')
+  Future<HttpResponse<List<TourModel>>> getTours(
+      @Query("category_id") String? id);
 }

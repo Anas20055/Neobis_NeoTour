@@ -5,6 +5,7 @@ import 'package:neo_tour/app/data/data_sourses/neo_tour_api.dart';
 import 'package:neo_tour/app/data/repository/category_repo_impl.dart';
 import 'package:neo_tour/app/domain/repository/category_repo.dart';
 import 'package:neo_tour/app/domain/usecases/get_categories.dart';
+import 'package:neo_tour/app/domain/usecases/get_tours.dart';
 import 'package:neo_tour/app/presentation/bloc/category_bloc.dart';
 import 'package:neo_tour/core/constants/constats.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
@@ -19,5 +20,6 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<NeoTourApi>(NeoTourApi(dio));
   sl.registerSingleton<CategoryRepo>(CategoryRepoImpl(sl()));
   sl.registerSingleton<GetCategoriesUseCase>(GetCategoriesUseCase(sl()));
-  sl.registerSingleton<CategoryBloc>(CategoryBloc(sl()));
+  sl.registerSingleton<GetToursUseCase>(GetToursUseCase(sl()));
+  sl.registerSingleton<CategoryBloc>(CategoryBloc(sl(), sl()));
 }

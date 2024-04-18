@@ -1,7 +1,8 @@
 part of 'category_bloc.dart';
 
 abstract class CategoryEvent extends Equatable {
-  const CategoryEvent();
+  final int? id;
+  const CategoryEvent({this.id = 1});
 
   @override
   // TODO: implement props
@@ -10,4 +11,8 @@ abstract class CategoryEvent extends Equatable {
 
 class GetCategory extends CategoryEvent {
   const GetCategory();
+}
+
+class GetTours extends CategoryEvent {
+  const GetTours(int id) : super(id: id);
 }
