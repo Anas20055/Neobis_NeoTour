@@ -13,7 +13,7 @@ class _NeoTourApi implements NeoTourApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://172.233.60.215:8888/api';
+    baseUrl ??= 'https://atai-mamytov.click/neotour/tour';
   }
 
   final Dio _dio;
@@ -34,7 +34,7 @@ class _NeoTourApi implements NeoTourApi {
     )
             .compose(
               _dio.options,
-              '/neotour/categories',
+              '/categories',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -65,7 +65,7 @@ class _NeoTourApi implements NeoTourApi {
     )
             .compose(
               _dio.options,
-              '/neotour/tours',
+              '/tours',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -76,6 +76,37 @@ class _NeoTourApi implements NeoTourApi {
             ))));
     List<TourModel> value = (_result.data!['results'] as List<dynamic>)
         .map((dynamic i) => TourModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<ReviewModel>>> getReviews(String? id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'tour_id': id};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<List<ReviewModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/reviews',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    List<ReviewModel> value = (_result.data!['results'] as List<dynamic>)
+        .map((dynamic i) => ReviewModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;

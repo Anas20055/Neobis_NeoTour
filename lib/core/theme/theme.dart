@@ -26,6 +26,18 @@ ThemeData _theme() {
         labelSmall: TextStyle(
           fontSize: 16,
         ),
+        headlineLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w900,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       tabBarTheme: TabBarTheme(
         tabAlignment: TabAlignment.start,

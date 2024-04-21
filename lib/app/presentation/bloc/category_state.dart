@@ -3,15 +3,21 @@ part of 'category_bloc.dart';
 abstract class CategoryState extends Equatable {
   final List<CategoryEntity>? categories;
   final List<TourEntity>? tours;
+  final List<ReviewEntity>? reviews;
   final List<TourEntity>? recommendedTours;
   final DioException? error;
 
-  const CategoryState(
-      {this.categories, this.error, this.tours, this.recommendedTours});
+  const CategoryState({
+    this.reviews,
+    this.categories,
+    this.error,
+    this.tours,
+    this.recommendedTours,
+  });
 
   @override
   List<Object> get props =>
-      [categories ?? '', error ?? '', tours ?? <TourEntity>[]];
+      [categories ?? [], error ?? '', tours ?? [], reviews ?? []];
 }
 
 class CategoryLoading extends CategoryState {
@@ -19,7 +25,12 @@ class CategoryLoading extends CategoryState {
 }
 
 class CategoryDone extends CategoryState {
-  const CategoryDone({super.categories, super.tours, super.recommendedTours});
+  const CategoryDone({
+    super.categories,
+    super.tours,
+    super.recommendedTours,
+    super.reviews,
+  });
 }
 
 class CategoryError extends CategoryState {

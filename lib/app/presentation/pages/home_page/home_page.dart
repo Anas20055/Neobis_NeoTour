@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(
-      length: 3,
+      length: 7,
       vsync: this,
     );
     final theme = Theme.of(context).textTheme;

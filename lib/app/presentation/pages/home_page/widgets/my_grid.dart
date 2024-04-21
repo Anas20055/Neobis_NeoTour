@@ -16,7 +16,7 @@ class MyGrid extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(top: 16),
+        padding: const EdgeInsets.only(right: 16),
         child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -58,6 +58,7 @@ class MyGrid extends StatelessWidget {
   }
 
   void _onTab(TourEntity tour, BuildContext context) {
+    print('1');
     Navigator.pushNamed(context, AppRouteNames.tour, arguments: tour);
   }
 }

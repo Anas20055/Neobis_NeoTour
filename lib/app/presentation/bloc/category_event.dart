@@ -16,3 +16,7 @@ class GetCategory extends CategoryEvent {
 class GetTours extends CategoryEvent {
   const GetTours(int id) : super(id: id);
 }
+
+class GetRevies extends CategoryEvent {
+  const GetRevies(int id) : super(id: id);
+}
