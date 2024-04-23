@@ -2,11 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:neo_tour/app/domain/entity/category.dart';
+import 'package:neo_tour/app/domain/entity/post.dart';
 import 'package:neo_tour/app/domain/entity/tour.dart';
 import 'package:neo_tour/app/domain/entity/review.dart';
 import 'package:neo_tour/app/domain/usecases/get_categories.dart';
 import 'package:neo_tour/app/domain/usecases/get_reviews.dart';
 import 'package:neo_tour/app/domain/usecases/get_tours.dart';
+import 'package:neo_tour/app/domain/usecases/tour_book.dart';
 part 'category_event.dart';
 part 'category_state.dart';
 
@@ -14,14 +16,17 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final GetCategoriesUseCase _getCategoriesUseCase;
   final GetToursUseCase _getToursUseCase;
   final GetReviewsUseCase _getReviewsUseCase;
+  final TourBookUseCase _tourBookUseCase;
   CategoryBloc(
     this._getCategoriesUseCase,
     this._getToursUseCase,
     this._getReviewsUseCase,
+    this._tourBookUseCase,
   ) : super(const CategoryLoading()) {
     on<GetCategory>(onGetCategory);
     on<GetTours>(onGetTours);
     on<GetRevies>(onGetReviews);
+    on<TourBook>(onTourBook);
   }
   void onGetCategory(GetCategory event, Emitter<CategoryState> emit) async {
     emit(const CategoryLoading());
@@ -47,6 +52,14 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           tours: dataState,
           categories: currentState.categories,
           recommendedTours: currentState.recommendedTours));
+    } on DioException catch (e) {
+      emit(CategoryError(e));
+    }
+  }
+
+  void onTourBook(TourBook event, Emitter<CategoryState> emit) async {
+    try {
+      await _tourBookUseCase.call(params: event.tourbook);
     } on DioException catch (e) {
       emit(CategoryError(e));
     }

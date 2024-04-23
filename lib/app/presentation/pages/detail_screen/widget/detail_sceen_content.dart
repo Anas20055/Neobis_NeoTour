@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:neo_tour/app/presentation/bloc/category_bloc.dart';
 import 'package:neo_tour/app/presentation/pages/detail_screen/detail_screen.dart';
 import 'package:neo_tour/core/constants/app_svg.dart';
 
@@ -26,7 +24,7 @@ class DetailScreenContent extends StatelessWidget {
     );
   }
 
-  Padding _buildContent(BuildContext context, TextTheme theme) {
+  Widget _buildContent(BuildContext context, TextTheme theme) {
     return Padding(
       padding: const EdgeInsets.only(top: 357),
       child: Container(
@@ -71,53 +69,57 @@ class DetailScreenContent extends StatelessWidget {
               style: theme.headlineMedium,
             ),
             const SizedBox(height: 16),
-            BlocBuilder<CategoryBloc, CategoryState>(
-              builder: (context, state) {
-                return ListView.builder(
-                  padding: const EdgeInsets.only(bottom: 70),
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: state.reviews
-                      ?.length, // Replace with the actual number of reviews
-                  itemBuilder: (context, index) {
-                    if (state is CategoryLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (state is CategoryDone) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 12,
-                                backgroundImage: NetworkImage(
-                                  state.reviews?[index].author.photo ?? '',
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                state.reviews?[index].author.username ?? '',
-                                style: theme.labelSmall
-                                    ?.copyWith(fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            state.reviews?[index].text ?? '',
-                            style: theme.labelSmall,
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      );
-                    }
-                    return const Text('some thing went wrong');
-                  },
-                );
-              },
+            Text(
+              'No Reviesw',
+              style: theme.headlineMedium,
             ),
+            // BlocBuilder<CategoryBloc, CategoryState>(
+            //   builder: (context, state) {
+            //     return ListView.builder(
+            //       padding: const EdgeInsets.only(bottom: 70),
+            //       physics: const NeverScrollableScrollPhysics(),
+            //       shrinkWrap: true,
+            //       itemCount: state.reviews
+            //           ?.length, // Replace with the actual number of reviews
+            //       itemBuilder: (context, index) {
+            //         if (state is CategoryLoading) {
+            //           return const Center(
+            //             child: CircularProgressIndicator(),
+            //           );
+            //         }
+            //         if (state is CategoryDone) {
+            //           return Column(
+            //             children: [
+            //               Row(
+            //                 children: [
+            //                   CircleAvatar(
+            //                     radius: 12,
+            //                     backgroundImage: NetworkImage(
+            //                       state.reviews?[index].author.photo ?? '',
+            //                     ),
+            //                   ),
+            //                   const SizedBox(width: 8),
+            //                   Text(
+            //                     state.reviews?[index].author.username ?? '',
+            //                     style: theme.labelSmall
+            //                         ?.copyWith(fontWeight: FontWeight.w500),
+            //                   ),
+            //                 ],
+            //               ),
+            //               const SizedBox(height: 16),
+            //               Text(
+            //                 state.reviews?[index].text ?? '',
+            //                 style: theme.labelSmall,
+            //               ),
+            //               const SizedBox(height: 16),
+            //             ],
+            //           );
+            //         }
+            //         return const Text('some thing went wrong');
+            //       },
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),

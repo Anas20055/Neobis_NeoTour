@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neo_tour/app/domain/entity/tour.dart';
 import 'package:neo_tour/app/presentation/bloc/category_bloc.dart';
+import 'package:neo_tour/app/presentation/pages/bottom_sheet/bottom_sheet.dart';
 import 'package:neo_tour/app/presentation/pages/detail_screen/widget/detail_sceen_content.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -44,7 +45,17 @@ class _DetailScreenState extends State<DetailScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         color: Colors.white,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.white,
+                context: context,
+                builder: (context) {
+                  return CustomBottomSheet(
+                    tourId: widget.tour.id ?? 1,
+                  );
+                });
+          },
           child: Text(
             'Book Now',
             style: theme.bodyMedium,

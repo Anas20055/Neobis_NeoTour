@@ -1,5 +1,6 @@
 import 'package:neo_tour/app/data/data_sourses/neo_tour_api.dart';
-import 'package:neo_tour/app/data/model/category.dart';
+import 'package:neo_tour/app/domain/entity/category.dart';
+import 'package:neo_tour/app/domain/entity/post.dart';
 import 'package:neo_tour/app/domain/entity/review.dart';
 import 'package:neo_tour/app/domain/entity/tour.dart';
 import 'package:neo_tour/app/domain/repository/category_repo.dart';
@@ -10,7 +11,7 @@ class CategoryRepoImpl implements CategoryRepo {
     this._neoTourApi,
   );
   @override
-  Future<List<CategoryModel>> getCategories() async {
+  Future<List<CategoryEntity>> getCategories() async {
     final httpResponse = await _neoTourApi.getCategories();
     return httpResponse.data;
   }
@@ -25,5 +26,10 @@ class CategoryRepoImpl implements CategoryRepo {
   Future<List<ReviewEntity>> getReviews(String id) async {
     final httpResponse = await _neoTourApi.getReviews(id);
     return httpResponse.data;
+  }
+
+  @override
+  Future<void> bookTour(PostRequest tourBook) async {
+    await _neoTourApi.createPost(tourBook);
   }
 }
