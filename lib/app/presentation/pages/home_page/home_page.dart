@@ -24,6 +24,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       PageController(keepPage: false, viewportFraction: 0.86);
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(
       length: 7,
@@ -45,24 +51,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           if (state is CategoryDone) {
             return Padding(
               padding: const EdgeInsets.only(left: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  tabBar(context, tabController, state),
-                  const SizedBox(height: 24),
-                  MyPage(
-                    tours: state.tours ?? [],
-                    controller: _pageController,
-                  ),
-                  const SizedBox(height: 16),
-                  myIndicator(state),
-                  const SizedBox(height: 22),
-                  recommendedText(theme),
-                  const SizedBox(height: 18),
-                  MyGrid(
-                    tours: state.recommendedTours ?? [],
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    tabBar(tabController, state),
+                    const SizedBox(height: 24),
+                    MyPage(
+                      tours: state.tours ?? [],
+                      controller: _pageController,
+                    ),
+                    const SizedBox(height: 16),
+                    myIndicator(state),
+                    const SizedBox(height: 22),
+                    recommendedText(theme),
+                    const SizedBox(height: 18),
+                    MyGrid(
+                      tours: state.recommendedTours ?? [],
+                    ),
+                  ],
+                ),
               ),
             );
           }
@@ -77,14 +85,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  TabBar tabBar(
-      BuildContext context, TabController tabController, CategoryDone state) {
+  TabBar tabBar(TabController tabController, CategoryDone state) {
     return TabBar(
-      onTap: _onTab,
+      onTap: (value) => _onTab(
+        value,
+      ),
       isScrollable: true,
       controller: tabController,
       tabs: List<Widget>.generate(
-        state.categories!.length - 1,
+        7,
         (index) => Tab(text: state.categories?[index + 1].name),
       ),
     );

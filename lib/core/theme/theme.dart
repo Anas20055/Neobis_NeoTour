@@ -38,6 +38,11 @@ ThemeData _theme() {
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
+        bodyMedium: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
       ),
       tabBarTheme: TabBarTheme(
         tabAlignment: TabAlignment.start,

@@ -14,51 +14,50 @@ class MyGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(right: 16),
-        child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 16.0,
-              crossAxisSpacing: 16.0,
-            ),
-            itemCount: tours.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => _onTab(tours[index], context),
+    return Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 16.0,
+            crossAxisSpacing: 16.0,
+          ),
+          itemCount: tours.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () => _onTab(tours[index], context),
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(tours[index].photo ?? '')),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.black),
                 child: Container(
-                  alignment: Alignment.bottomCenter,
+                  padding: const EdgeInsets.only(top: 12, left: 12),
+                  height: 41,
+                  width: MediaQuery.sizeOf(context).width,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(tours[index].photo ?? '')),
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.black),
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 12, left: 12),
-                    height: 41,
-                    width: MediaQuery.sizeOf(context).width,
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(19),
-                          bottomRight: Radius.circular(19),
-                        ),
-                        color: Colors.black.withOpacity(0.40)),
-                    child: Text(
-                      tours[index].name ?? '',
-                      style: theme.labelMedium?.copyWith(fontSize: 14),
-                    ),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(19),
+                        bottomRight: Radius.circular(19),
+                      ),
+                      color: Colors.black.withOpacity(0.40)),
+                  child: Text(
+                    tours[index].name ?? '',
+                    style: theme.labelMedium?.copyWith(fontSize: 14),
                   ),
                 ),
-              );
-            }),
-      ),
+              ),
+            );
+          }),
     );
   }
 
   void _onTab(TourEntity tour, BuildContext context) {
-    print('1');
     Navigator.pushNamed(context, AppRouteNames.tour, arguments: tour);
   }
 }
