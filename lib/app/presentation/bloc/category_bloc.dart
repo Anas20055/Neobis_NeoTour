@@ -60,9 +60,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   void onTourBook(TourBook event, Emitter<CategoryState> emit) async {
     try {
       await _tourBookUseCase.call(params: event.tourbook);
-    } on DioException catch (e) {
-      emit(CategoryError(e));
-    }
+    } on DioException catch (_) {}
   }
 
   void onGetReviews(GetRevies event, Emitter<CategoryState> emit) async {

@@ -117,8 +117,7 @@ class _NeoTourApi implements NeoTourApi {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(postRequest.toJson());
+    final _data = postRequest.toJson();
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
@@ -126,15 +125,11 @@ class _NeoTourApi implements NeoTourApi {
     )
         .compose(
           _dio.options,
-          '/tour-book',
+          '/tour-book/',
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+        .copyWith(baseUrl: 'https://atai-mamytov.click/neotour/tour')));
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

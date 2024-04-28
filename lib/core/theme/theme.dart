@@ -3,10 +3,15 @@ part of '../../main.dart';
 ThemeData _theme() {
   return ThemeData(
     fontFamily: 'SfProDisplay',
-    elevatedButtonTheme: const ElevatedButtonThemeData(
+    elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(AppColors.purple),
-        padding: MaterialStatePropertyAll(
+        backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+          if (states.contains(MaterialState.disabled)) {
+            return AppColors.disabledColor;
+          }
+          return AppColors.purple;
+        }),
+        padding: const MaterialStatePropertyAll(
           EdgeInsets.symmetric(horizontal: 30, vertical: 17),
         ),
       ),

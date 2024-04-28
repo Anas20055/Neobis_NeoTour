@@ -30,7 +30,7 @@ class MyPage extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     height: 254,
-                    width: 335,
+                    width: MediaQuery.sizeOf(context).width * 0.77906977,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.fill,
